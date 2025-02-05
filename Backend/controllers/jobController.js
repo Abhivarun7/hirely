@@ -1,4 +1,3 @@
-
 const Job = require('../models/Job');
 
 const generateJobId = async () => {
@@ -11,7 +10,6 @@ const generateJobId = async () => {
   // Increment the last job_id to generate the next job_id
   return lastJob.job_id + 1;
 };
-
 // Create new job
 exports.createJob = async (req, res) => {
   try {
@@ -39,8 +37,6 @@ exports.createJob = async (req, res) => {
     });
   }
 };
-
-
 // Search jobs with multiple filters
 exports.searchJobs = async (req, res) => {
   try {
@@ -83,9 +79,6 @@ exports.searchJobs = async (req, res) => {
     });
   }
 };
-
-// controllers/jobController.js
-
 exports.getRecentJobs = async (req, res) => {
   try {
     const { employeeId } = req.params;
@@ -212,10 +205,6 @@ exports.getRecentJobs = async (req, res) => {
     });
   }
 };
-
-
-
-
 // Get job by job_id
 exports.getJobById = async (req, res) => {
   try {
@@ -238,7 +227,6 @@ exports.getJobById = async (req, res) => {
     });
   }
 };
-
 // Get job stats for an employee
 exports.getJobStats = async (req, res) => {
   try {
@@ -265,8 +253,6 @@ exports.getJobStats = async (req, res) => {
     });
   }
 };
-
-
 exports.getJobsByEmployeeId = async (req, res) => {
   try {
     const jobs = await Job.find({ employeeId: req.params.employee_id }); // Fetch multiple jobs
@@ -291,8 +277,6 @@ exports.getJobsByEmployeeId = async (req, res) => {
     });
   }
 };
-
-
 // Update job
 exports.updateJob = async (req, res) => {
   try {
@@ -321,7 +305,6 @@ exports.updateJob = async (req, res) => {
     });
   }
 };
-
 // Delete job
 exports.deleteJob = async (req, res) => {
   try {

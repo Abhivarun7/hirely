@@ -8,16 +8,20 @@ mongoose.set('debug', true);
 
 exports.getApplicationUserData = async (req, res) => {
   try {
+    // Parse userId from the request params to an integer
     const { userId } = req.params;
+    const parsedUserId = parseInt(userId, 10);
 
-    // Fetch user data based on userId
-    const user = await User.findOne({ user_id: userId });
+    if (isNaN(parsedUserId)) {
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
 
+    // Fetch user data based on parsed userId
+    const user = await User.findOne({ user_id: parsedUserId });
+    
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    
 
     // Return the user data
     res.status(200).json({
@@ -39,8 +43,6 @@ exports.getApplicationUserData = async (req, res) => {
     res.status(500).json({ message: 'Error fetching user data' });
   }
 };
-
-
 
 exports.getApplications = async (req, res) => {
   try {
@@ -606,4 +608,87 @@ exports.loginClient = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+const levenshtein = require('fast-levenshtein');  // You can install this package for calculating string similarity
 
+exports.searchUser = async (req, res) => {
+  const { name, location, skills } = req.query;
+
+  try {
+    let query = {};
+    let closeMatches = { name: [], location: [], skills: [] };
+
+    if (name) {
+      query.name = { $regex: name, $options: 'i' }; // Case-insensitive name search
+    }
+
+    if (location) {
+      query.location = { $regex: location, $options: 'i' }; // Case-insensitive location search
+    }
+
+    if (skills) {
+      query.skills = { $regex: skills, $options: 'i' }; // Case-insensitive partial match for skills
+    }
+
+    const users = await User.find(query);
+
+    if (users.length > 0) {
+      return res.json(users);
+    }
+
+    // No exact matches found, look for close matches
+    if (name) {
+      closeMatches.name = await findCloseMatches('name', name);
+    }
+
+    if (location) {
+      closeMatches.location = await findCloseMatches('location', location);
+    }
+
+    if (skills) {
+      closeMatches.skills = await findCloseMatches('skills', skills);
+    }
+
+    const allCloseMatches = [
+      ...closeMatches.name,
+      ...closeMatches.location,
+      ...closeMatches.skills,
+    ];
+
+    if (allCloseMatches.length === 0) {
+      return res
+        .status(404)
+        .json({ message: 'No similar users found with the provided search criteria' });
+    }
+
+    res.json(allCloseMatches);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error searching users', error: err.message });
+  }
+};
+
+// Helper function for close matches
+const findCloseMatches = async (field, searchTerm) => {
+  const users = await User.find({});
+  const threshold = 3; // Adjust this for tolerance level
+  let closeMatches = [];
+
+  users.forEach((user) => {
+    let value = user[field];
+
+    if (Array.isArray(value)) {
+      value.forEach((item) => {
+        if (levenshtein.get(item.toLowerCase(), searchTerm.toLowerCase()) <= threshold) {
+          closeMatches.push(user);
+        }
+      });
+    } else if (
+      value &&
+      levenshtein.get(value.toLowerCase(), searchTerm.toLowerCase()) <= threshold
+    ) {
+      closeMatches.push(user);
+    }
+  });
+
+  return closeMatches;
+};

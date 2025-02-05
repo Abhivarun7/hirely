@@ -5,6 +5,7 @@ const connectDB = require('./connectdb'); // Ensure this is implemented correctl
 const jobRouter = require('./routes/jobRoutes'); // Correct path
 const clientRouter = require('./routes/clientRoutes'); // Correct path
 const userRouter = require('./routes/userRoutes'); // Correct path
+const adminRouter = require('./routes/adminRoutes'); // Correct path
 
 const app = express();
 
@@ -25,12 +26,14 @@ app.use(express.json());
 app.use('/api/jobs', jobRouter);
 app.use('/api/users', userRouter);
 app.use('/api/clients', clientRouter);
+app.use('/api/admin', adminRouter);
 
 // Default error handler
 app.use((err, req, res, next) => {
   console.error('Unhandled Error:', err.stack);
   res.status(500).json({ message: 'Internal Server Error' });
 });
+
 
 // Start the server
 const PORT = 3000;

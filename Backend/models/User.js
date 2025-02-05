@@ -24,7 +24,7 @@ const userSchema = new Schema({
   },
   phone_number: {
     type: String,
-    required: true,
+    required: false,
     match: [/^\d{10}$/, 'Please enter a valid 10-digit phone number']
   },
   password: {

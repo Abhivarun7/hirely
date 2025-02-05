@@ -22,7 +22,7 @@ const receivedApplicationSchema = new Schema({
     default: 'pending',  // Default status is 'pending'
   },
   resume: {
-    type: String,  // URL or file path to resume if needed
+    type: Buffer,  // URL or file path to resume if needed
   },
   cover_letter: {
     type: String,  // URL or file path to cover letter if needed

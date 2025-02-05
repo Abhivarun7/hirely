@@ -60,6 +60,8 @@ router.get('/all', clientController.getAllClients);
 router.put('/update/:id', clientController.updateClient);
 router.delete('/delete/:id', clientController.removeClient);
 
+router.get('/userSearch', clientController.searchUser);
+
 // Error handling middleware for the router
 router.use((err, req, res, next) => {
   console.error('Router Error:', err);
