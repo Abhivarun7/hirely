@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 const Job = require("../models/Job");
 
@@ -79,15 +79,16 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    // Don't send password in response
+    // Prepare response without password
     const userResponse = user.toObject();
     delete userResponse.password;
 
     console.log('User logged in:', userResponse);
 
-    res.status(200).json(userResponse);
+    return res.status(200).json({ message: 'Login successful', user: userResponse });
   } catch (err) {
-    res.status(500).json({ message: 'Error during login: ' + err.message });
+    console.error('Login error:', err);
+    return res.status(500).json({ message: 'Error during login: ' + err.message });
   }
 };
 // Remove a user by ID
