@@ -13,7 +13,7 @@ const app = express();
 connectDB();
 
 // Configure CORS dynamically for multiple origins
-const allowedOrigins = ['http://localhost:5173', 'https://hirely-1.onrender.com']; // Add other origins as needed
+const allowedOrigins = ['http://localhost:5173', 'https://hirely-0v4z.onrender.com/']; // Add other origins as needed
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests without origin (like from Postman)
