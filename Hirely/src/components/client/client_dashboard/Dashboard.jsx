@@ -22,6 +22,7 @@ const StatsCard = ({ title, value, icon: Icon, loading }) => (
   </div>
 );
 
+
 const LoadingSkeleton = () => (
   <div className="bg-gray-800/50 rounded-lg p-4 animate-pulse">
     <div className="flex justify-between items-start mb-4">
@@ -51,6 +52,12 @@ const Dashboard = ({ setActiveTab, setSelectedJob, setSelectedApplication }) => 
   const [loading, setLoading] = useState(true);
 
   const employeeId = JSON.parse(localStorage.getItem("userDetails"))?.employeeId;
+
+  const handleselectedjob=()=>{
+    console.log("Selected Job");
+    setSelectedJob(job);
+  }
+  
 
   const fetchStats = useCallback(async () => {
     if (!employeeId) {
@@ -132,7 +139,7 @@ const Dashboard = ({ setActiveTab, setSelectedJob, setSelectedApplication }) => 
   );
 
   const JobCard = ({ job }) => (
-    <div onClick={() => setSelectedJob(job)} className="bg-gray-800/50 rounded-lg p-4 hover:bg-gray-800 transition-colors">
+    <div onClick={() => handleselectedjob(job)} className="bg-gray-800/50 rounded-lg p-4 hover:bg-gray-800 transition-colors">
       <div className="cursor-pointer flex justify-between items-start mb-2">
         <div>
           <h4 className="font-medium text-gray-200">{job.job_title}</h4>

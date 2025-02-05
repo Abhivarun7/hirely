@@ -1,16 +1,19 @@
 import { Search, Briefcase } from 'lucide-react';
 import { useState} from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 const LandingPage = () => {
   const [searchParams, setSearchParams] = useState({
     query: '',
     location: '',
   });
-  
+  const navigate = useNavigate();
+
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Update the handleSearch function in your frontend
+  // Update the handleSearch function in your frontends
 const handleSearch = async () => {
   try {
     setLoading(true);
@@ -37,6 +40,9 @@ const handleSearch = async () => {
   }
 };
   
+const handleuserlogin = () => {
+  navigate("/user_login");
+}
   
   
 
@@ -46,7 +52,7 @@ const handleSearch = async () => {
       <nav className="bg-zinc-900 shadow-purple-900/20 shadow-lg p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold text-purple-400">Hirely</h1>
-          <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+          <button   onClick={handleuserlogin} className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
             Login
           </button>
         </div>
@@ -192,26 +198,27 @@ const handleSearch = async () => {
             <div>
               <h3 className="text-xl font-bold mb-4 text-gray-200">Quick Links</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-purple-400">Find Jobs</a></li>
+                <li><a href="/user_login" className="text-gray-400 hover:text-purple-400">Find Jobs</a></li>
                 <li><a  href="/client_signup" className="text-gray-400 hover:text-purple-400">Post a Job</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-purple-400">Browse Companies</a></li>
+                <li><a href="/user_login" className="text-gray-400 hover:text-purple-400">Browse Companies</a></li>
               </ul>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4 text-gray-200">Contact Us</h3>
               <ul className="space-y-2">
-                <li className="text-gray-400">Email: contact@hirely.com</li>
-                <li className="text-gray-400">Phone: (555) 123-4567</li>
-                <li className="text-gray-400">Address: 123 Job Street</li>
+                <li className="text-gray-400">Email: ram8374041@gmail.com</li>
+                <li className="text-gray-400">Phone: 709 335 3332</li>
+                <li className="text-gray-400">Address: Tanuku, West Godavari</li>
               </ul>
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4 text-gray-200">Follow Us</h3>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-purple-400">Twitter</a>
-                <a href="#" className="text-gray-400 hover:text-purple-400">LinkedIn</a>
-                <a href="#" className="text-gray-400 hover:text-purple-400">Facebook</a>
+                <a href="#" className="text-gray-400 hover:text-purple-400" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="https://www.linkedin.com/in/abhi-ram-3b9251279" className="text-gray-400 hover:text-purple-400" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://www.instagram.com/_bhi.v_run/" className="text-gray-400 hover:text-purple-400" target="_blank" rel="noopener noreferrer">Instagram</a>
               </div>
+
             </div>
           </div>
           <div className="border-t border-purple-900/30 mt-8 pt-8 text-center text-gray-400">
