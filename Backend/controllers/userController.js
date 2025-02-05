@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 const Job = require("../models/Job");
 
@@ -33,11 +33,15 @@ exports.addUser = async (req, res) => {
     console.log('Password:', password);
 
     // Hash password
-    const salt = await bcrypt.genSalt(10);
-    console.log('Generated Salt:', salt);  // Check the salt
-    const hashedPassword = await bcrypt.hash(password, salt);
-    console.log('Hashed Password:', hashedPassword);  // Check the hashed password
-
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) throw err;
+      console.log('Generated Salt:', salt);
+    
+      bcrypt.hash(password, salt, (err, hashedPassword) => {
+        if (err) throw err;
+        console.log('Hashed Password:', hashedPassword);
+      });
+    });
     // Prepare the new user object
     const newUser = new User({
       user_id,
@@ -74,10 +78,17 @@ exports.login = async (req, res) => {
     }
 
     // Verify password
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
-      return res.status(400).json({ message: 'Invalid email or password' });
-    }
+    bcrypt.compare(password, user.password, (err, isValidPassword) => {
+      if (err) {
+        return res.status(500).json({ message: 'Server error' });
+      }
+      if (!isValidPassword) {
+        return res.status(400).json({ message: 'Invalid email or password' });
+      }
+
+      // Password is valid
+      res.status(200).json({ message: 'Login successful' });
+    });
 
     // Don't send password in response
     const userResponse = user.toObject();
