@@ -86,21 +86,19 @@ exports.login = async (req, res) => {
         return res.status(400).json({ message: 'Invalid email or password' });
       }
 
-      // Password is valid
-      res.status(200).json({ message: 'Login successful' });
+      // Password is valid, send user data (without password)
+      const userResponse = user.toObject();
+      delete userResponse.password; // Don't send password in response
+
+      console.log('User logged in:', userResponse);
+      res.status(200).json(userResponse);  // Send response once, after success
     });
 
-    // Don't send password in response
-    const userResponse = user.toObject();
-    delete userResponse.password;
-
-    console.log('User logged in:', userResponse);
-
-    res.status(200).json(userResponse);
   } catch (err) {
     res.status(500).json({ message: 'Error during login: ' + err.message });
   }
 };
+
 // Remove a user by ID
 exports.removeUser = async (req, res) => {
   try {
