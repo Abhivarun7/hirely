@@ -1,6 +1,6 @@
 // App.jsx
 import React, { useState,useEffect } from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar";
 import DashboardLayout from "./dashboard";
 import DashboardContent  from './dashboardContent';
 import UserProfile from './profile/user_profile';

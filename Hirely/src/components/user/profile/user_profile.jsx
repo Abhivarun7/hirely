@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft, Share2, Download, Upload, Mail, Phone, MapPin } from 'lucide-react';
 import ProgressLine from './progress';
-import Skills from './Skills';
+import Skills from './skills';
 import Education from './Education';
 import Certifications from './Certifications';
 import Experience from './Experience';
