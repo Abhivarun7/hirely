@@ -12,9 +12,17 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Configure CORS
+// Configure CORS dynamically for multiple origins
+const allowedOrigins = ['http://localhost:5173', 'https://hirely-1.onrender.com']; // Add other origins as needed
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend URL
+  origin: function (origin, callback) {
+    // Allow requests without origin (like from Postman)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
@@ -34,9 +42,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
-
 // Start the server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
