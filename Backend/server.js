@@ -2,7 +2,7 @@ require('dotenv').config(); // Ensure you have a .env file with DB_URI
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./connectdb'); // Ensure this is implemented correctly
-const jobRouter = require('./routes/jobRoutes'); // Correct path
+const jobRouter = require('./routes/jobroutes'); // Correct path
 const clientRouter = require('./routes/clientRoutes'); // Correct path
 const userRouter = require('./routes/userRoutes'); // Correct path
 const adminRouter = require('./routes/adminRoutes'); // Correct path
