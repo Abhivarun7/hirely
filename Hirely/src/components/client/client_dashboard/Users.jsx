@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import { Search, Loader, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:3000/api/clients';
+const API_BASE_URL = 'https://hirely-2.onrender.com/api/clients';
 
 const skillsList = [
   'python', 'java', 'javascript', 'react', 'node', 'angular', 'vue', 'html', 'css',

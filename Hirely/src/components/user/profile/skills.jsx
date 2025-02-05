@@ -35,7 +35,7 @@ const SkillsSection = ({ user }) => {
   // Handle skill addition or removal with error handling
   const modifySkill = useCallback(async (skill, action) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/users/${user.user_id}/skills`, {
+      const response = await fetch(`https://hirely-2.onrender.com/api/users/users/${user.user_id}/skills`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

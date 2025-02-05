@@ -9,7 +9,7 @@ const TABS = [
   { id: 'rejected', label: 'Rejected', status: 'rejected' }
 ];
 
-const API_BASE_URL = 'http://localhost:3000/api/clients';
+const API_BASE_URL = 'https://hirely-2.onrender.com/api/clients';
 
 const ApplicationDetails = ({ application, userDetails, onBack, onStatusUpdate }) => (
   <div className="p-8">

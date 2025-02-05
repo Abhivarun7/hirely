@@ -132,7 +132,7 @@ const Certifications = ({ certifications, setCertifications, userId }) => {
           ? { oldCertification: certifications[isEditing], newCertification: formData }
           : { title: formData.title, organization: formData.organization, date_issued: formData.date_issued, link: formData.link };
   
-        const response = await axios.put(`http://localhost:3000/api/users/users/${userId}/certification`, {
+        const response = await axios.put(`https://hirely-2.onrender.com/api/users/users/${userId}/certification`, {
           certification: payload,
           action,
         });
@@ -162,7 +162,7 @@ const Certifications = ({ certifications, setCertifications, userId }) => {
       try {
         const certification = certifications[index];
   
-        const response = await axios.put(`http://localhost:3000/api/users/users/${userId}/certification`, {
+        const response = await axios.put(`https://hirely-2.onrender.com/api/users/users/${userId}/certification`, {
           certification: certification,
           action: 'remove',
         });

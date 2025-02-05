@@ -14,7 +14,7 @@ const CompanyJobs = ({ loading, setSelectedJob, setActiveTab, searchCompanyResul
 
   const fetchJobs = async (companyName) => {
     try {
-      const response = await axios.get('http://localhost:3000/api/users/users/jobsearch', {
+      const response = await axios.get('https://hirely-2.onrender.com/api/users/users/jobsearch', {
         params: { company_name: companyName }
       });
       setJobs(response.data.results);

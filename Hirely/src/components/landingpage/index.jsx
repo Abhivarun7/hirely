@@ -22,7 +22,7 @@ const handleSearch = async () => {
       ...searchParams
     }).toString();
 
-    const response = await fetch(`http://localhost:3000/api/jobs/search?${queryString}`);
+    const response = await fetch(`https://hirely-2.onrender.com/api/jobs/search?${queryString}`);
     const data = await response.json();
 
     console.log('API response:', data);

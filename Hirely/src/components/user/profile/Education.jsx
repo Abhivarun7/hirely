@@ -4,7 +4,7 @@ import { GraduationCap, Trash2, Plus, Edit2 } from 'lucide-react';
 
 // Set the base URL for the API
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api', // Adjust this to your backend's actual URL
+  baseURL: 'https://hirely-2.onrender.com/api', // Adjust this to your backend's actual URL
 });
 
 // Component for individual education items

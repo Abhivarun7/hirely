@@ -67,7 +67,7 @@ const Dashboard = ({ setActiveTab, setSelectedJob, setSelectedApplication }) => 
     }
 
     try {
-      const response = await axios.get(`http://localhost:3000/api/clients/stats/${employeeId}`);
+      const response = await axios.get(`https://hirely-2.onrender.com/api/clients/stats/${employeeId}`);
       if (response?.data) {
         const recentJobs = response.data.recentJobs || [];
         setStats({
@@ -88,7 +88,7 @@ const Dashboard = ({ setActiveTab, setSelectedJob, setSelectedApplication }) => 
 
   const fetchRecentJobs = useCallback(async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/jobs/recent-jobs/${employeeId}`);
+      const response = await axios.get(`https://hirely-2.onrender.com/api/jobs/recent-jobs/${employeeId}`);
       setJobs(response.data.data);
     } catch (err) {
       setError(err.message);

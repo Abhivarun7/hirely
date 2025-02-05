@@ -187,7 +187,7 @@ const Experience = ({ experience, setExperience, userId, handleExperienceUpdate 
           ? { oldExperience: experience[isEditing], newExperience: formData }
           : formData;
 
-        await axios.put(`http://localhost:3000/api/users/users/${userId}/experience`, {
+        await axios.put(`https://hirely-2.onrender.com/api/users/users/${userId}/experience`, {
           user_id: userId,
           experience: payload,
           action,
@@ -230,7 +230,7 @@ const Experience = ({ experience, setExperience, userId, handleExperienceUpdate 
         return;
       }
 
-      await axios.put(`http://localhost:3000/api/users/users/${userId}/experience`, {
+      await axios.put(`https://hirely-2.onrender.com/api/users/users/${userId}/experience`, {
         user_id: userId,
         experience: { _id: experienceToDelete._id }, // Send only `_id` for deletion
         action: "remove",

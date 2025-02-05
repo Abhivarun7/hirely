@@ -133,7 +133,7 @@ const Projects = ({ projects, setProjects, userId, handleProjectsUpdate }) => {
           ? { oldProject: projects[isEditing], newProject: formData }
           : formData;
 
-        await axios.put(`http://localhost:3000/api/users/users/${userId}/project`, {
+        await axios.put(`https://hirely-2.onrender.com/api/users/users/${userId}/project`, {
           user_id: userId,
           project: payload,
           action,
@@ -166,7 +166,7 @@ const Projects = ({ projects, setProjects, userId, handleProjectsUpdate }) => {
   const handleDelete = useCallback(
     async (index) => {
       try {
-        await axios.put(`http://localhost:3000/api/users/users/${userId}/project`, {
+        await axios.put(`https://hirely-2.onrender.com/api/users/users/${userId}/project`, {
           user_id: userId,
           project: projects[index],
           action: "remove",

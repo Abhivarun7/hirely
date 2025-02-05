@@ -55,7 +55,7 @@ const PostNewJob = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:3000/api/jobs/create', jobPayload, {
+      const response = await axios.post('https://hirely-2.onrender.com/api/jobs/create', jobPayload, {
         headers: {
           'Content-Type': 'application/json',
         }

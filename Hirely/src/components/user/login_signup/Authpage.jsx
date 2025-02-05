@@ -45,7 +45,7 @@ const AuthPage = () => {
   
       // Send the data as JSON in the request body
       const response = await axios.post(
-        `http://localhost:3000/api/users/${isLogin ? 'login' : 'add'}`,
+        `https://hirely-2.onrender.com/api/users/${isLogin ? 'login' : 'add'}`,
         data,
         {
           headers: {

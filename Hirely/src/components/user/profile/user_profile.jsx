@@ -114,9 +114,9 @@ const UserProfile = ({ setActiveTab,handleDataUpdate }) => {
   
     const formData = new FormData();
     formData.append('resume', selectedFile);
-  
+    https://hirely-2.onrender.com
     try {
-      const response = await axios.put(`http://localhost:3000/api/users/users/${user.user_id}/resume/upload`, formData, {
+      const response = await axios.put(`https://hirely-2.onrender.com/api/users/users/${user.user_id}/resume/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Upload success:', response.data);
@@ -133,7 +133,7 @@ const UserProfile = ({ setActiveTab,handleDataUpdate }) => {
   const handleDownload = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/users/users/${user.user_id}/resume/download`,
+        `https://hirely-2.onrender.com/api/users/users/${user.user_id}/resume/download`,
         {
           responseType: 'arraybuffer', // Ensures binary data is retrieved correctly
         }
@@ -172,7 +172,7 @@ const UserProfile = ({ setActiveTab,handleDataUpdate }) => {
   
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/users/users/${userId}/pic/upload`,
+        `https://hirely-2.onrender.com/api/users/users/${userId}/pic/upload`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -203,7 +203,7 @@ const UserProfile = ({ setActiveTab,handleDataUpdate }) => {
   const handleInlineEdit = async (field) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/users/users/${user.user_id}/personalInfo`,
+        `https://hirely-2.onrender.com/api/users/users/${user.user_id}/personalInfo`,
         { [field]: editValue }
       );
       

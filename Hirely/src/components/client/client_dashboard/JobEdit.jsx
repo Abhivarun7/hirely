@@ -23,7 +23,7 @@ const JobEdit = ({ job, onBack, onSave }) => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/jobs/getJobsByEmployeeId/${employeeId}`);
+        const response = await axios.get(`https://hirely-2.onrender.com/api/jobs/getJobsByEmployeeId/${employeeId}`);
         const jobData = response.data.data.find(j => j._id === job._id);
         setFormData(jobData);
       } catch (error) {
@@ -56,7 +56,7 @@ const JobEdit = ({ job, onBack, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3000/api/jobs/edit/${formData.job_id}`, formData);
+      const response = await axios.put(`https://hirely-2.onrender.com/api/jobs/edit/${formData.job_id}`, formData);
       if (response.data.success) {
         onSave();
       } else {

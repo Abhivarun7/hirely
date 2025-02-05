@@ -21,7 +21,7 @@ const JobsPosted = ({ selectedJob, setSelectedJob }) => {
       if (employeeId) {
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/jobs/getJobsByEmployeeId/${employeeId}`
+            `https://hirely-2.onrender.com/api/jobs/getJobsByEmployeeId/${employeeId}`
           );
           setAllPostedJobs(response.data.data || []);
         } catch (error) {
@@ -48,13 +48,13 @@ const JobsPosted = ({ selectedJob, setSelectedJob }) => {
 
   const handleDelete = async (jobId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/jobs/delete/${jobId}`);
+      await axios.delete(`https://hirely-2.onrender.com/api/jobs/delete/${jobId}`);
       setAlertMessage('Job deleted successfully');
       setShowAlert(true);
       setSelectedJob(null);
       // Refresh jobs list
       const response = await axios.get(
-        `http://localhost:3000/api/jobs/getJobsByEmployeeId/${employeeId}`
+        `https://hirely-2.onrender.com/api/jobs/getJobsByEmployeeId/${employeeId}`
       );
       setAllPostedJobs(response.data.data || []);
     } catch (error) {

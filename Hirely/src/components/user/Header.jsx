@@ -142,7 +142,7 @@ const Header = ({ setLoading, user, setSearchCompanyResults, setActiveTab,active
         if (value) queryParams.append(key, value);
       });
   
-      const response = await axios.get(`http://localhost:3000/api/users/users/jobsearch?${queryParams}`);
+      const response = await axios.get(`https://hirely-2.onrender.com/api/users/users/jobsearch?${queryParams}`);
       
       // Handle the search results
       onSearchResults(response.data.results);
@@ -177,7 +177,7 @@ const Header = ({ setLoading, user, setSearchCompanyResults, setActiveTab,active
       // Construct the query string using URLSearchParams
       const params = new URLSearchParams(searchCompanyParams).toString();
     
-      const response = await axios.post(`http://localhost:3000/api/users/users/companysearch`, {
+      const response = await axios.post(`https://hirely-2.onrender.com/api/users/users/companysearch`, {
         company_name: companyFreeText
       });
   

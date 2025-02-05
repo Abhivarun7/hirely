@@ -11,7 +11,7 @@ import UserDashboard from "./components/user/index";
 const App = () => {
   return (
     <Router>
-      <div>
+      <div className='bg-slate-950 '>
         <Routes>
           <Route path="/user_login" element={<Login />} />
           <Route path="/client_signup" element={<ClientSignup />} />

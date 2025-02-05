@@ -33,7 +33,7 @@ const Sidebar = ({ activeTab, setSelectedJob, setActiveTab, user }) => {
     formData.append('employeeId', userDetails?.employeeId);
   
     try {
-      const response = await fetch('http://localhost:3000/api/clients/uploadProfilePic', {
+      const response = await fetch('https://hirely-2.onrender.com/api/clients/uploadProfilePic', {
         method: 'POST',
         body: formData,
       });

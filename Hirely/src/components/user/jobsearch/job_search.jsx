@@ -40,7 +40,7 @@ const JobSearch = ({ loading, selectedJob, setSelectedJob, searchResults }) => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/users/users/applyjob", {
+      const response = await axios.post("https://hirely-2.onrender.com/api/users/users/applyjob", {
         user_id: user.user_id,
         job_id: jobId,
       }, {
