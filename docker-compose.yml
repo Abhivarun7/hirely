@@ -1,0 +1,104 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: hirely_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: hirely
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hirely
+
+  redis:
+    image: redis:7-alpine
+    container_name: hirely_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hirely
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: hirely_mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /mail
+    networks:
+      - hirely
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hirely_backend
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      MONGODB_URI: mongodb://mongodb:27017/hirely
+      REDIS_URL: redis://redis:6379
+      SMTP_HOST: mailhog
+      SMTP_PORT: "1025"
+      FRONTEND_URL: http://localhost:8080
+    env_file:
+      - ./backend/.env
+    volumes:
+      - backend_uploads:/app/uploads
+    networks:
+      - hirely
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api/v1}
+    container_name: hirely_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    networks:
+      - hirely
+
+volumes:
+  mongo_data:
+    driver: local
+  redis_data:
+    driver: local
+  backend_uploads:
+    driver: local
+
+networks:
+  hirely:
+    name: hirely_network
+    driver: bridge
