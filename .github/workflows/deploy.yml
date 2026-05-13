@@ -1,0 +1,29 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy .env files
+        run: |
+          cp /mnt/storage/Hirely/backend/.env $GITHUB_WORKSPACE/backend/.env
+          cp /mnt/storage/Hirely/frontend/.env $GITHUB_WORKSPACE/frontend/.env || true
+
+      - name: Stop existing containers
+        working-directory: ${{ github.workspace }}
+        run: docker-compose down --remove-orphans
+
+      - name: Build and start containers
+        working-directory: ${{ github.workspace }}
+        run: docker-compose up -d --build
+
+      - name: Verify containers are running
+        run: docker-compose -f ${{ github.workspace }}/docker-compose.yml ps
