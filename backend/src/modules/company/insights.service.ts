@@ -871,7 +871,7 @@ export const insightsService = {
       sent_at: new Date(),
     });
 
-    const trackingBase = `${config.BACKEND_BASE_URL.replace(/\/+$/, '')}/api/v1/track/invite/${token}`;
+    const trackingBase = `${config.CORS_ORIGINS.replace(/\/+$/, '')}/api/v1/track/invite/${token}`;
     const clickUrl = `${trackingBase}/click`;
     const openPixelUrl = `${trackingBase}/open.gif`;
 
